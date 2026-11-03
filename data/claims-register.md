@@ -1,0 +1,126 @@
+# Claims register
+
+Every claim on [iotfinancial.net](https://iotfinancial.net) that can go out of date, the primary source it comes from, how often it is checked and when it was last checked.
+
+The same rows are in [claims-register.csv](claims-register.csv) for spreadsheets. Its `Verification` column reads `verified` or `UNVERIFIED`.
+
+Snapshot taken 3 November 2026. The live site may be newer than this file.
+
+## How to read it
+
+- **verified**: a primary source was checked on the "Last verified" date and matches the site.
+- **updated on the site DATE**: a primary source showed a change, and the site text was corrected on that date.
+- **UNVERIFIED**: a primary source could not confirm the claim, or it was not rechecked in the latest check. The site text is left as it was until a primary source confirms a change. Treat these rows with extra care, and check the source yourself.
+
+Rules for the register:
+
+- Site text is only changed on a primary source (a regulator, a statute or standard, a company's own filing or announcement, or a project's own release page). A tracker, mirror or news story alone is not enough; the row is marked unverified instead.
+- Check frequencies: weekly (block heights, company holdings), monthly (firmware, regulation, bills, HMRC guidance), quarterly (filings, rates, thresholds that move with budgets), annually (statute, standards, inflation indexed figures).
+- Company holdings are listed as facts from each company's own announcements. They are not a view on any company and not a recommendation.
+
+Spotted something out of date? Please [open an issue](../CONTRIBUTING.md) with the claim ID and a link to the primary source.
+
+## Calendar and chain data
+
+Site page: https://iotfinancial.net/learn/bitcoin-calendar/
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| CAL-01 | bitcoin-calendar | Static (no-JS) halving fallback: tip height and blocks to go | Was 973,731 (29 Oct). Now 974,376, "About 75,624 blocks to go ... (checked 3 November 2026)" | https://mempool.space/api/blocks/tip/height (cross-check https://blockstream.info/api/blocks/tip/height) | weekly | 3 Nov 2026 | updated on the site 3 Nov 2026 |
+| CAL-02 | bitcoin-calendar | Static "This month" label | Was "October 2026". Now "November 2026" (the page script replaces it live) | Calendar date | monthly | 3 Nov 2026 | updated on the site 3 Nov 2026 |
+| CAL-03 | bitcoin-calendar | Next halving block height | 1,050,000 (every 210,000 blocks) | Bitcoin Core consensus rule (subsidy halving interval) | annually | 3 Nov 2026 | verified |
+| CAL-04 | bitcoin-calendar, timeline | Dated UK and US deadlines listed in the calendar (FCA gateway, regime start, MTD, CARF, 1099-DA) | See rows UKR, UKT, USR below | As per those rows | monthly | 3 Nov 2026 | verified except CARF wording (UKT-01) |
+
+## Company holdings
+
+Site page: https://iotfinancial.net/learn/small-company-bitcoin-treasuries/ and https://iotfinancial.net/learn/bitcoin-treasury-case-notes/
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| TRE-01 | treasuries, case notes | The Smarter Web Company holding | 2,850 BTC (23 Oct 2026) | https://www.investegate.co.uk (SWC RNS "Bitcoin Purchase", 23 Oct 2026) | weekly | 3 Nov 2026 | verified (no newer RNS found) |
+| TRE-02 | treasuries | H100 Group holding | 3,506.4 BTC (10 Aug 2026) | https://storage.mfn.se/7768a89c-b5a3-45e0-984f-f3fce221f90a/ (H100 press release) | weekly | 3 Nov 2026 | verified |
+| TRE-03 | treasuries, case notes | B HODL holding | 166.487 BTC (30 Jun 2026), 167.487 BTC (27 Oct 2026) | B HODL annual results RNS (Investegate 9844604) | weekly | 3 Nov 2026 | verified |
+| TRE-04 | treasuries | Connecting Excellence Group holding | 81.157 BTC (5 Oct 2026) | https://www.aquis.eu/stock-exchange/announcements/5954887 | weekly | 3 Nov 2026 | verified (figure confirmed earlier in the check; the Aquis page later rate limited, HTTP 429) |
+| TRE-05 | treasuries, case notes | Coinsilium holding | 182 BTC (31 Dec 2025) | FCA NSM annual report; Sept 2026 company presentation still says 182 | weekly | 3 Nov 2026 | verified |
+| TRE-06 | treasuries | aifinyo holding | 30.9 BTC (18 Nov 2025) | https://aifinyo.com/newsroom/aifinyo-ag-acquires-additional-2-btc-total-holdings-reach-30-9-btc | weekly | 3 Nov 2026 | verified (still latest) |
+| TRE-07 | treasuries | Matador Technologies holding | About 168 BTC (2 Oct 2026) | GlobeNewswire release, 2 Oct 2026 | weekly | 3 Nov 2026 | verified |
+| TRE-08 | treasuries, case notes | Nocera holding and Q2 figures | About 23.53 BTC (30 Jun 2026); fair value $1,377,574 | SEC EDGAR 10-Q/A filed 2 Oct 2026 (no Q3 10-Q yet) | weekly | 3 Nov 2026 | verified |
+| TRE-09 | case notes | KULR FY2025 figures | 1,074.21 BTC; cost $108,514,113; fair value $93,995,256 | SEC EDGAR 10-K for FY2025 (Q3 10-Q not filed yet) | quarterly | 3 Nov 2026 | verified |
+| TRE-10 | treasuries | LQwD Technologies holding | Site: "About 267 BTC (12 May 2026)" | SEDAR+ interim filing (primary, could not be fetched); https://lqwdtech.com/investors says "~264 BTC" undated; a non-primary mirror shows about 264.77 BTC at 31 Aug 2026 after an uninsured loss of 2.39 BTC | weekly | 3 Nov 2026 | **UNVERIFIED** (primary filing not reachable; site text left unchanged until a primary source confirms a change) |
+| TRE-11 | treasuries, case notes | Vanadi Coffee holding | 223 BTC (30 Jun 2026) | https://vanadi.es/wp-content/uploads/2026/10/05716_OtraInfRelev_20261030-c_compressed.pdf | weekly | 3 Nov 2026 | verified (figure unchanged) |
+| TRE-12 | case notes | Vanadi Coffee borrowing and going concern | Added: Bit2Me loans €7.11m at 30 Jun 2026; Bit2Me gave notice of early termination after the period end; Alicante court suspended termination and enforcement on 1 Oct 2026; about 11.4 BTC free of charge; auditor's limited review flags material uncertainty on going concern | Same interim report, published 30 Oct 2026 (new source tr-van-3) | quarterly | 3 Nov 2026 | updated on the site 3 Nov 2026 |
+| TRE-13 | treasuries | First purchase dates and sizes for each company (SWC 2.30 BTC 28 Apr 2025, Coinsilium 10.0021, B HODL 100, CEG 16.65, H100 4.39, Vanadi 5 BTC May 2025, Matador about 29 BTC Jan 2025) | As listed | Each company's own first-purchase announcement (Aquis, mfn.se, vanadi.es, GlobeNewswire) | annually (historic, does not change) | 3 Nov 2026 | verified (Matador page fetched; Aquis pages rate limited on 3 Nov, figures were verified at publication) |
+
+## Hardware signers
+
+Site page: https://iotfinancial.net/learn/open-source-hardware-signers/
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| HW-01 | hardware signers | BitBox02 latest firmware | 9.27.1 (31 Aug 2026) | https://github.com/BitBoxSwiss/bitbox02-firmware/releases | monthly | 3 Nov 2026 | verified |
+| HW-02 | hardware signers | Krux latest release | v26.09.0 | https://github.com/selfcustody/krux/releases | monthly | 3 Nov 2026 | verified |
+| HW-03 | hardware signers | SeedSigner latest release | 0.8.7 (July 2026); page says check release notes | https://github.com/SeedSigner/seedsigner/releases | monthly | 3 Nov 2026 | verified |
+| HW-04 | hardware signers | Specter DIY latest | v1.10.5 | https://github.com/cryptoadvance/specter-diy/releases | monthly | 3 Nov 2026 | verified |
+| HW-05 | hardware signers | Foundation Passport latest | v2.3.11 | https://github.com/Foundation-Devices/passport2/releases | monthly | 3 Nov 2026 | verified |
+| HW-06 | hardware signers | Keystone latest | 3.2.0 (23 Oct 2026) | https://github.com/KeystoneHQ/keystone3-firmware/releases | monthly | 3 Nov 2026 | verified |
+| HW-07 | hardware signers | Blockstream Jade latest | 1.0.41 (22 Aug 2026) | https://github.com/Blockstream/Jade/blob/master/CHANGELOG.md | monthly | 3 Nov 2026 | verified |
+| HW-08 | hardware signers, security lessons | No new key, seed, firmware or signing advisories since the 29 Oct check | None found. Bitkey BKS.2026.10.B (3 Oct 2026) is server side Mobile Pay, no customer impact, outside scope | Vendor security pages and GitHub advisories | monthly | 3 Nov 2026 | verified |
+| HW-09 | security lessons, custody | Trezor supply chain post cited as background | Post content | https://blog.trezor.io/trezors-multi-layer-defense-against-supply-chain-attacks-54541f410389 | annually | 3 Nov 2026 | **UNVERIFIED** (HTTP 403 to automated checks, likely a bot block) |
+
+## UK tax and reporting
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| UKT-01 | timeline (and calendar entry) | First CARF reports | Was "Reports for 2026 are due to HMRC between 1 January and 31 May 2027." Now "Reports for 2026 are due to HMRC by 31 May 2027. HMRC's online reporting service is not live yet." | https://www.gov.uk/guidance/check-if-youll-need-to-report-cryptoasset-data-to-hmrc (updated 2 Nov 2026 10:00 UK/GMT: 1 Jan 2027 start and 31 Jan 2027 registration dates removed, service not live yet); https://www.gov.uk/hmrc-internal-manuals/international-exchange-of-information/ieim8000050 (still "due by 31 May 2027") | monthly | 3 Nov 2026 | updated on the site 3 Nov 2026 |
+| UKT-02 | guides_sizing, accountants-corner, company-bitcoin-tax | CARF: providers collect data from 1 Jan 2026, reports for 2026 due by 31 May 2027 | As stated | Same two sources as UKT-01 | monthly | 3 Nov 2026 | verified |
+| UKT-03 | company-bitcoin-tax, guides | Corporation Tax main rate, small profits rate and limits | 25%, 19%, £50,000 and £250,000 | https://www.gov.uk/corporation-tax-rates | quarterly | 3 Nov 2026 | verified |
+| UKT-04 | making-tax-digital | MTD for Income Tax thresholds | £50,000 from 6 Apr 2026, £30,000 from 6 Apr 2027, £20,000 from 6 Apr 2028 | https://www.gov.uk/guidance/check-if-youre-eligible-for-making-tax-digital-for-income-tax | quarterly | 3 Nov 2026 | verified |
+| UKT-05 | borrowing-against-bitcoin, company-bitcoin-tax | Cryptoasset loans (DeFi lending and staking) rules from 6 Apr 2027, for individuals and trustees | As stated | GOV.UK policy paper on cryptoasset loans (updated 28 Oct 2026, Exchequer impact and SCLA text only) | monthly | 3 Nov 2026 | verified |
+| UKT-06 | company-bitcoin-tax, accountants-corner, bookkeeping examples | HMRC Cryptoassets Manual references (CRYPTO pages, pooling, company treatment) | As quoted | https://www.gov.uk/hmrc-internal-manuals/cryptoassets-manual (latest update 13 Aug 2026 on CRYPTO25000) | monthly | 3 Nov 2026 | verified (no update since earlier checks) |
+| UKT-07 | owners-estate-and-company-bitcoin | IHT business property relief allowance figures | £2.5m and £5m as stated | https://www.gov.uk/hmrc-internal-manuals/inheritance-tax-manual/ihtm25510 (not updated since 7 Apr 2026); IHTM25520 updated 9 Oct 2026, before the 20 Oct page check | quarterly | 3 Nov 2026 | verified |
+| UKT-08 | selling-a-company, owners-estate | Business Asset Disposal Relief rate and lifetime limit | As stated on page | https://www.gov.uk/business-asset-disposal-relief | annually | 1 Nov 2026 (page stamp) | **UNVERIFIED** (not rechecked in this check) |
+| UKT-09 | uk-company-bitcoin-accounting-frs-102, frs-105, home, accountants-corner | FRS 102 and FRS 105 have no cryptoasset-specific requirements; FRS 105 historical cost | As stated | https://www.frc.org.uk (FRS 102 and FRS 105 pages) | annually | 2 Nov 2026 (page publish check) | **UNVERIFIED** (not rechecked in this check; text consistent with earlier checks) |
+
+## UK regulation
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| UKR-01 | rules-and-insurance, timeline, calendar | FCA cryptoasset authorisation gateway | Opens 30 Sep 2026, closes 28 Feb 2027 | https://www.fca.org.uk (cryptoasset regime pages) | monthly | 3 Nov 2026 | verified |
+| UKR-02 | rules-and-insurance, timeline, calendar | New UK cryptoasset regime starts | 25 Oct 2027 | Same | monthly | 3 Nov 2026 | verified |
+| UKR-03 | rules-and-insurance, custodian due diligence | Until then, MLR registration with the FCA; no FSCS or Ombudsman cover | As stated | https://www.fca.org.uk/firms/financial-crime/cryptoassets-aml-ctf-regime | monthly | 3 Nov 2026 | verified |
+| UKR-04 | company-banking-and-source-of-funds | UK Finance letter to the APPG, 5 Oct 2026 | As cited | https://www.ukfinance.org.uk/system/files/2026-10/Crypto%20and%20Digital%20Assets%20APPG%20Inquiry%20Letter%20FINAL.pdf | annually | 3 Nov 2026 | verified (loads in a browser; some automated clients are blocked) |
+
+## US tax, accounting and regulation
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| USR-01 | rules-and-insurance, timeline | OCC GENIUS Act final rule | Published 21 Oct 2026, effective 18 Jan 2027 (same day the Act takes effect) | https://www.occ.gov (news release and rule) | monthly | 3 Nov 2026 | verified |
+| USR-02 | rules-and-insurance | GENIUS Act is law | Public Law 119-27 (S.1582) | https://api.congress.gov/v3/bill/119/s/1582 | annually | 3 Nov 2026 | verified |
+| USR-03 | rules-and-insurance, timeline | H.R.10357 status | Introduced 14 Sep 2026; ordered reported 16 Sep 2026 by 38 to 5; no later action | https://www.congress.gov/bill/119th-congress/house-bill/10357 (via congress.gov API) | monthly | 3 Nov 2026 | verified |
+| USR-04 | rules-and-insurance | H.R.3633 status | Last action 15 Sep 2026 | https://www.congress.gov/bill/119th-congress/house-bill/3633 | monthly | 3 Nov 2026 | verified |
+| USR-05 | owners-estate | Estate basic exclusion and annual gift exclusion for 2026 | $15,000,000 and $19,000 | https://www.irs.gov (estate and gift tax FAQs) | annually | 3 Nov 2026 | verified |
+| USR-06 | guides_sizing, accountants-corner, company-bitcoin-tax, timeline | Form 1099-DA: gross proceeds from 1 Jan 2025, basis for covered securities from 2026 | As stated | https://www.irs.gov/forms-pubs/about-form-1099-da and https://www.irs.gov/instructions/i1099da | quarterly | 3 Nov 2026 | **UNVERIFIED** (not rechecked individually this check; text consistent with earlier checks) |
+| USR-07 | home, us-company-bitcoin-accounting, guides | ASU 2023-08 fair value through net income; effective date | As stated | https://storage.fasb.org/ASU%202023-08.pdf | annually | 3 Nov 2026 | **UNVERIFIED** (not rechecked in this check; standard text does not change) |
+| USR-08 | company-bitcoin-tax | California corporation franchise tax rate | 8.84% | https://www.ftb.ca.gov | annually | page stamp | **UNVERIFIED** (not rechecked in this check) |
+| USR-09 | qsbs-and-company-bitcoin, by-business-type | Section 1202 QSBS conditions and limits | As stated | https://www.law.cornell.edu/uscode/text/26/1202 and IRS | annually | page stamp | **UNVERIFIED** (not rechecked in this check) |
+| USR-10 | rules-and-insurance, custodian due diligence | SIPC coverage limits and scope | As stated | https://www.sipc.org/for-investors/what-sipc-protects | annually | 3 Nov 2026 | verified (page loads) |
+| USR-11 | custodian due diligence | NYDFS custody guidance and licensee list | As cited | https://www.dfs.ny.gov/industry-guidance/industry-letters/il20250930-updated-guidance-custodial-structures | annually | 3 Nov 2026 | verified |
+| USR-12 | bitcoin-audit-evidence | PCAOB AS 1105 and proof of reserve advisory (8 Mar 2023) | As cited | https://pcaobus.org/oversight/standards/auditing-standards/details/AS1105 and the investor advisory page | annually | 3 Nov 2026 | verified |
+
+## Other stamps and incident figures
+
+| ID | Page(s) | Claim | Current value on the site | Primary source | Check frequency | Last verified | Status |
+|---|---|---|---|---|---|---|---|
+| OTH-01 | methodology | "Last checked: 20 October 2026" stamp | 20 Oct 2026 | Site page stamp | monthly | not changed | **UNVERIFIED** (site-wide re-check not complete; stamp left alone) |
+| OTH-02 | most explore and learn pages | "Last checked" page stamps (29 Oct to 2 Nov 2026) | As shown | Site page stamps | weekly | not changed | **UNVERIFIED** (left alone; only three items changed; stamps should be updated when a whole page is rechecked) |
+| OTH-03 | scams-targeting-companies, security-lessons | Incident figures and dates from official statements | As stated | Linked law enforcement and regulator pages | quarterly | 31 Oct 2026 (page stamp) | **UNVERIFIED** (not rechecked in this check) |
+| OTH-04 | xero-and-quickbooks-bitcoin | QuickBooks help article steps | As cited | Intuit help articles L0mCv3AKn and L6Bzy9mT9 | annually | 3 Nov 2026 | verified (both load, updated Aug 2026) |
+| OTH-05 | about, terms, privacy, support | Licence and site terms details | As stated | The site's own terms and privacy pages | annually | not rechecked | **UNVERIFIED** (not rechecked in this check) |
+## Latest link check (3 November 2026)
+
+- 320 unique external links on the site were checked. None was confirmed broken.
+- Some sources block automated checks (HTTP 403 or 429 rate limiting) but load in a browser. Those rows say so.
+
+---
+
+Education, not advice. This register records what the site says and where it comes from. It is not financial, investment, tax, accounting, legal or regulatory advice.
